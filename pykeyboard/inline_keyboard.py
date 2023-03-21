@@ -39,7 +39,10 @@ class InlineKeyboard(InlineKeyboardMarkup):
         ]
 
     def row(self, *args):
-        self.inline_keyboard.append([button for button in args])
+        if isinstance(args[0], InlineKeyboardButton):
+            self.inline_keyboard.append([button for button in args])
+        else:
+            self.inline_keyboard.append([button for button in args[0]])
 
     def _add_button(self, text, callback_data):
         return InlineKeyboardButton(
